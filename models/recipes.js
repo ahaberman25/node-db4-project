@@ -6,11 +6,12 @@ function find() {
 
 function getShoppingList(id) {
     return db("recipes as r")
-        .innerJoin("steps as s", "s.recipe_id", id)        
+        .where("r.id", id)
+        .innerJoin("steps as s", "r.id", "s.recipe_id")        
         .innerJoin("recipe_ingredients as ri", "ri.step", "s.step_number")
         .innerJoin("ingredients as i")
         .where("i.id", "ri.ingredient_id")
-        .select("ri.quantity", "i.name")
+        .select("r.id", "ri.quantity", "i.name")
 }
 
 // SELECT ri.quantity, i.name 
