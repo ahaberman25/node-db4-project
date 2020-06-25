@@ -44,3 +44,16 @@ Build the following endpoints. Write any additional data access helpers as neede
 - `GET /api/recipes/:id/shoppingList`: a list of ingredients and quantites for a single recipe
 - `GET /api/recipes/:id/instructions`: a correctly ordered list of how to prepare a single recipe
 - `GET /api/ingredients/:id/recipes`: all recipes in the system that utilize a single ingredient 
+
+
+## sql helpers:
+
+SELECT s.step_number, r.name as "recipe name", s.description, ri.quantity, i.name as "ingredient name"
+FROM recipes as r
+INNER JOIN steps as s ON
+	r.id = s.recipe_id
+INNER JOIN recipe_ingredients as ri ON
+	ri.step = s.step_number
+INNER JOIN ingredients as i
+WHERE i.id = ri.ingredient_id
+ORDER BY r.id

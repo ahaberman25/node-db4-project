@@ -1,11 +1,14 @@
 const express = require("express")
 const helmet = require("helmet")
+const recipeRouter = require("./routers/recipes")
 
 const server = express()
 const port = process.env.PORT || 4000
 
 server.use(helmet())
 server.use(express.json())
+
+server.use(recipeRouter)
 
 server.get("/", (req, res) =>{
     res.send("api for recipes")
